@@ -5,41 +5,24 @@
  */
 
 'use strict';
-
 var http = require('http');
-// var apiai = require("../module/apiai");
 var apiai = require("apiai");
-
 var app = apiai("2657996f7a2541ec827362de2c09cf8d");
 
-var code = 405;
+const express = require('express').express()
 
-var server = http.createServer(function(request, response) {
-    if (request.method == 'POST' && request.url == '/upload') {
-        var voiceRequest = app.voiceRequest();
+express.get('/', function(req, res) {
+  res.send('Hello World!')
+})
 
-        voiceRequest.on('response', function(_response) {
-            response.end(JSON.stringify(_response));
-        });
+express.post('/', function(req, res) {
+  res.send({
+    'speech': 'Testing, please work.',
+    'source': 'Statman',
+    'displayText': 'Testing, please work.'
+  })
+})
 
-        voiceRequest.on('error', function(error) {
-            console.log(error);
-            response.end();
-        });
-
-        request.on('data', function(chunk) {
-            voiceRequest.write(chunk);
-        });
-
-        request.on('end', function() {
-            voiceRequest.end();
-        });
-    } else {
-        response.writeHead(code, {});
-        response.end();
-    }
-
-    console.log(request.headers);
-});
-
-server.listen(8000);
+express.listen(3000, function() {
+  console.log('Statman listening on port 3000!')
+})

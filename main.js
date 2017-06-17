@@ -7,9 +7,9 @@
 'use strict';
 var http = require('http');
 var apiai = require("apiai");
-var app = apiai("2657996f7a2541ec827362de2c09cf8d");
+var key = apiai("2657996f7a2541ec827362de2c09cf8d");
 
-const express = require('express').express()
+const express = require('express')()
 
 express.get('/', function(req, res) {
   res.send('Hello World!')

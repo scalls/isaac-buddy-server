@@ -23,16 +23,14 @@ express.post('/', function(req, res) {
     if (req.body) {
 
       var requestBody = req.body
-      if (requestBody.result.action) {
-        console.log('Received action: ' + requestBody.result.action)
+      if (requestBody.result.action == 'career-stat-retrieval') {
+        res.send(getCareerStat(requestBody.result))
       }
 
     }
 
     res.send({
-      'speech': 'Derp.',
-      'source': 'Statman',
-      'displayText': 'Derp.'
+      displayText: 'Derp'
     })
 
   } catch(err) {
@@ -50,3 +48,11 @@ express.post('/', function(req, res) {
 express.listen(process.env.PORT || 3000, function() {
   console.log('Statman listening!')
 })
+
+function getCareerStat(json) {
+  var stat = json['baseball-stat']
+  var firstName = json['given-name']
+  var lastName = json['last-name']
+
+  console.log('Processing request: ' + stat + ' ' + firstName + ' ' + lastName)
+}

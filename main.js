@@ -50,10 +50,47 @@ express.listen(process.env.PORT || 3000, function() {
 function getCareerStat(parameters) {
 
   var stat = parameters['baseball-stat']
-  var firstName = parameters['given-name']
-  var lastName = parameters['last-name']
+  var firstName = parameters['given-name'].toLowerCase()
+  var lastName = parameters['last-name'].toLowerCase()
 
-  console.log('Processing request: ' + stat + ' ' + firstName + ' ' + lastName)
+  console.log('Processing request: ' + stat + ' 's + firstName + ' ' + lastName)
 
+  /* Get the correct number for the end of the Baseball Reference URL */
+  var urlNum = getCorrectNumber(firstName, lastName)
+
+  var url = 'www.baseball-reference.com/players/' + lastName[0]
+  url += '/' + lastName.substring(0, 5) + firstName.substring(0, 2)
+
+  /* Use that number to pull up the correct player's page */
+  if (urlMum < 10) {
+    url += '0'
+  }
+  url += urlNum + '.shtml'
+
+  /* Scrape the page for the requested statistic */
+  var statNum = scrape(url, stat)
+
+  /* Return the data */
+  /* TODO: format the response */
   return {}
+}
+
+function getCorrectNumber(firstName, lastName) {
+
+  var url = 'www.baseball-reference.com/players/' + lastName[0]
+  url += '/' + lastName.substring(0, 5) + firstName.substring(0, 2)
+  var num = 1
+
+  /* Start from 1 and increment, checking each page for the requested player */
+  /*  NOTE: Not sure how to handle indentical names yet. Might need to prompt
+              the user, asking which 'John Smith' they want to know about. */
+  while (1) {
+    /* TODO: this function
+  }
+
+  return num
+}
+
+function scrape(url, stat) {
+  /* TODO: fill this in
 }

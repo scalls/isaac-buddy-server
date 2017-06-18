@@ -16,8 +16,8 @@ express.get('/', function(req, res) {
 })
 
 express.post('/', function(req, res) {
-  console.log('req.params: ' + json.stringify(req.params))
-  console.log('req.query: ' + json.stringify(req.query))
+  console.log('req.params: ' + JSON.stringify(req.params))
+  console.log('req.query: ' + JSON.stringify(req.query))
   res.send({
     'speech': 'Testing, please work.',
     'source': 'Statman',

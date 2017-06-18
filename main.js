@@ -23,6 +23,6 @@ express.post('/', function(req, res) {
   })
 })
 
-express.listen(3000, function() {
+express.listen(8080, function() {
   console.log('Statman listening on port 3000!')
 })

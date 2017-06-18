@@ -24,7 +24,9 @@ express.post('/', function(req, res) {
 
       var requestBody = req.body
       if (requestBody.result.action == 'career-stat-retrieval') {
-        res.send(getCareerStat(requestBody.result))
+        res.send(getCareerStat(requestBody.result['baseball-stat'],
+                                requestBody.result['given-name'],
+                                requestBody.result['last-name']))
       }
 
     }
@@ -49,10 +51,11 @@ express.listen(process.env.PORT || 3000, function() {
   console.log('Statman listening!')
 })
 
-function getCareerStat(json) {
-  var stat = json['baseball-stat']
-  var firstName = json['given-name']
-  var lastName = json['last-name']
+function getCareerStat(stat, firstName, lastName) {
 
   console.log('Processing request: ' + stat + ' ' + firstName + ' ' + lastName)
+
+  return {
+    displayText: 'Derp'
+  }
 }

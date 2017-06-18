@@ -24,12 +24,12 @@ express.post('/', function(req, res) {
 
       var requestBody = req.body
       if (requestBody.result.action == 'career-stat-retrieval') {
-        res.send(getCareerStat(requestBody.result.parameters))
+        return res.send(getCareerStat(requestBody.result.parameters))
       }
 
     }
 
-    res.send({})
+    return res.send({})
 
   } catch(err) {
 

@@ -16,6 +16,7 @@ express.get('/', function(req, res) {
 })
 
 express.post('/', function(req, res) {
+  console.log('req: ' + JSON.stringify(req))
   console.log('req.params: ' + JSON.stringify(req.params))
   console.log('req.query: ' + JSON.stringify(req.query))
   res.send({

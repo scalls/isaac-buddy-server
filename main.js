@@ -16,6 +16,7 @@ express.get('/', function(req, res) {
 })
 
 express.post('/', function(req, res) {
+  console.log(req.body)
   res.send({
     'speech': 'Testing, please work.',
     'source': 'Statman',

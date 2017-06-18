@@ -24,16 +24,12 @@ express.post('/', function(req, res) {
 
       var requestBody = req.body
       if (requestBody.result.action == 'career-stat-retrieval') {
-        res.send(getCareerStat(requestBody.result['baseball-stat'],
-                                requestBody.result['given-name'],
-                                requestBody.result['last-name']))
+        console.log(JSON.stringify(requestBody.result))
       }
 
     }
 
-    res.send({
-      displayText: 'Derp'
-    })
+    res.send({})
 
   } catch(err) {
 
@@ -55,7 +51,5 @@ function getCareerStat(stat, firstName, lastName) {
 
   console.log('Processing request: ' + stat + ' ' + firstName + ' ' + lastName)
 
-  return {
-    displayText: 'Derp'
-  }
+  return {}
 }

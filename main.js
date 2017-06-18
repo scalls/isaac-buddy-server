@@ -19,9 +19,9 @@ express.post('/', function(req, res) {
   console.log('req.params: ' + JSON.stringify(req.params))
   console.log('req.query: ' + JSON.stringify(req.query))
   res.send({
-    'speech': 'Testing, please work.',
+    'speech': 'Derp.',
     'source': 'Statman',
-    'displayText': 'Testing, please work.'
+    'displayText': 'Derp.'
   })
 })
 

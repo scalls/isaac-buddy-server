@@ -88,7 +88,7 @@ function getCorrectNumber(firstName, lastName) {
   /* Start from 1 and increment, checking each page for the requested player */
   /*  NOTE: Not sure how to handle indentical names yet. Might need to prompt
               the user, asking which 'John Smith' they want to know about. */
-  while (1) {
+  while (num < 10) {
 
     var testUrl = url
     if (num < 10) {
@@ -98,12 +98,15 @@ function getCorrectNumber(firstName, lastName) {
 
     curl.get(testUrl, null, function(err, response, body) {
 
-      var html = body
-      console.log('Got their page!: ' + html)
+      console.log('Got their page!: ' + body)
 
     })
 
+    num += 1
+
   }
+
+  num = 1 /* NOTE: Should be removed later */
 
   return num
 }

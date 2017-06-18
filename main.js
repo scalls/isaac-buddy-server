@@ -5,9 +5,11 @@
  */
 
 'use strict';
-var http = require('http');
-var apiai = require("apiai");
-var key = apiai("2657996f7a2541ec827362de2c09cf8d");
+var http = require('http')
+var apiai = require("apiai")
+var key = apiai("2657996f7a2541ec827362de2c09cf8d")
+var curl = require('curl')
+var htmlParser = require('htmlparser2')
 
 const express = require('express')()
 const bodyParser = require('body-parser')
@@ -53,13 +55,15 @@ function getCareerStat(parameters) {
   var firstName = parameters['given-name'].toLowerCase()
   var lastName = parameters['last-name'].toLowerCase()
 
-  console.log('Processing request: ' + stat + ' 's + firstName + ' ' + lastName)
+  console.log('Processing request: ' + stat + ' ' + firstName + ' ' + lastName)
 
   /* Get the correct number for the end of the Baseball Reference URL */
   var urlNum = getCorrectNumber(firstName, lastName)
 
   var url = 'www.baseball-reference.com/players/' + lastName[0]
   url += '/' + lastName.substring(0, 5) + firstName.substring(0, 2)
+
+  var possibilities = []
 
   /* Use that number to pull up the correct player's page */
   if (urlMum < 10) {
@@ -85,12 +89,25 @@ function getCorrectNumber(firstName, lastName) {
   /*  NOTE: Not sure how to handle indentical names yet. Might need to prompt
               the user, asking which 'John Smith' they want to know about. */
   while (1) {
-    /* TODO: this function
+
+    var testUrl = url
+    if (num < 10) {
+      testUrl += 0
+    }
+    testUrl += num + '.shtml'
+
+    curl.get(testUrl, null, function(err, response, body) {
+
+      var html = body
+      console.log('Got their page!: ' + html)
+
+    })
+
   }
 
   return num
 }
 
 function scrape(url, stat) {
-  /* TODO: fill this in
+  /* TODO: fill this in */
 }

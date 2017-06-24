@@ -6,8 +6,10 @@
   "dependencies": {
     "apiai": "^4.0.2",
     "body-parser": "^1.17.2",
+    "cheerio": "^1.0.0-rc.1",
     "curl": "^0.1.4",
     "express": "^4.15.3",
+    "himalaya": "^0.2.10",
     "htmlparser2": "^3.9.2"
   },
   "devDependencies": {},

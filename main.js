@@ -10,17 +10,24 @@ var util = require('./util.js')
 var http = require('http')
 var apiai = require("apiai")
 var key = apiai("2657996f7a2541ec827362de2c09cf8d")
-var curl = require('curl')
-var fs = require('fs')
-var cheerio = require('cheerio')
 
 const express = require('express')()
 
 express.listen(process.env.PORT || 3000, function() {
-  console.log('Statman listening!')
+  console.log('Isaac Buddy listening!')
 })
 
-express.post('/', function(req, res) {
+/* For test purposes */
+express.get('/item/:item', (req, res) => {
+  var item = req.params.item
+  console.log('Attempting to retrieve data for: ' + item)
+  util.getItemInfo(item, (err, response) => {
+    if (err) { util.sendError(err, res) }
+    else { res.send(response) }
+  })
+})
+
+express.post('/', (req, res) => {
 
   console.log('Received POST request')
 
@@ -30,9 +37,9 @@ express.post('/', function(req, res) {
       var requestBody = req.body
       switch(requestBody.result.action) {
         case 'item-info':
-          util.getItemInfo(requestBody.result.parameters, (err, res) => {
-            if (err) { util.sendError(err) }
-            else { res.send(res) }
+          util.getItemInfo(requestBody.result.parameters.item, (err, response) => {
+            if (err) { util.sendError(err, res) }
+            else { res.send(response) }
           })
           break
         default:
@@ -42,6 +49,6 @@ express.post('/', function(req, res) {
 
   } catch(err) {
     /* Send an error message back if this didn't work */
-    util.sendError(err)
+    util.sendError(err, res)
   }
 })

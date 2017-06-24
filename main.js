@@ -37,6 +37,7 @@ express.post('/', (req, res) => {
       var requestBody = req.body
       switch(requestBody.result.action) {
         case 'item-info':
+          console.log('Trying to get info on the item: ' + requestBody.result.parameters.item)
           util.getItemInfo(requestBody.result.parameters.item, (err, response) => {
             if (err) { util.sendError(err, res) }
             else { res.send(response) }

@@ -39,6 +39,16 @@ express.get('/trinket/:trinket', (req, res) => {
   })
 })
 
+/* More test purpose stuff */
+express.get('/dice_room/:num', (req, res) => {
+  var num = parseInt(req.params.num)
+  console.log('Attempting to retrieve data for dice room: ' + num)
+  util.getDiceRoomInfo(num, (err, response) => {
+    if (err) { util.sendError(err, res) }
+    else { res.send(response) }
+  })
+})
+
 express.post('/', (req, res) => {
 
   console.log('Received POST request')
@@ -48,6 +58,13 @@ express.post('/', (req, res) => {
     if (req.body) {
       var requestBody = req.body
       switch(requestBody.result.action) {
+        case 'dice-room-info':
+          console.log('Trying to get info on the dice room: ' + requestBody.result.parameters.num)
+          util.getDiceRoomInfo(requestBody.result.parameters.item, (err, response) => {
+            if (err) { util.sendError(err, res) }
+            else { res.send(response) }
+          })
+          break
         case 'item-info':
           console.log('Trying to get info on the item: ' + requestBody.result.parameters.item)
           util.getItemInfo(requestBody.result.parameters.item, (err, response) => {

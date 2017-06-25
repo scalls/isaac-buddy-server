@@ -2,6 +2,31 @@ var curl = require('curl')
 var cheerio = require('cheerio')
 var http = require('http')
 
+exports.getDiceRoomInfo = function(num, callback) {
+
+  if (num < 1 || num > 6) {
+    callback('number invalid', null)
+  }
+
+  var url = 'http://bindingofisaacrebirth.gamepedia.com/Dice_Room'
+  curl.get(url, null, (err, res, body) => {
+    const $ = cheerio.load(body)
+    /* First, get the list of all of the items */
+    var dice_rooms = $('li', 'div .mw-content-ltr').toArray()
+    var text = $(dice_rooms[num+3]).text()
+    text = text.substring(text.indexOf('-') + 2)
+
+    /* Prepare the JSON for return */
+    var res = {
+      speech: text,
+      displayText: text,
+      source: 'bindingofisaacrebirth.gamepedia.com/',
+    }
+    callback(null, res)
+    return
+  })
+}
+
 exports.getItemInfo = function(item, callback) {
 
   /* Convert the item to lower case and convert all ASCII-160's to ASCII-32's */
@@ -137,7 +162,6 @@ exports.getTrinketInfo = function(trinket, callback) {
   })
 
 }
-
 
 exports.sendError = function(err, res) {
   console.error('Cannot process request', err)

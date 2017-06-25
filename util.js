@@ -7,7 +7,7 @@ exports.getItemInfo = function(item, callback) {
   /* Convert the item to lower case and convert all ASCII-160's to ASCII-32's */
   item = item.toLowerCase()
   while (1) {
-    var new_item = item.replace(Sting.fromCharCode(160), ' ')
+    var new_item = item.replace(String.fromCharCode(160), ' ')
     if (new_item == item) { break }
     else { item = new_item }
   }

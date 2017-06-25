@@ -49,6 +49,16 @@ express.get('/dice_room/:num', (req, res) => {
   })
 })
 
+/* Testing stuff */
+express.get('/pills/:pill', (req, res) => {
+  var pill = req.params.pill
+  console.log('Attempting to retrieve data for pill: ' + pill)
+  util.getPillInfo(pill, (err, response) => {
+    if (err) { util.sendError(err, res) }
+    else { res.send(response) }
+  })
+})
+
 express.post('/', (req, res) => {
 
   console.log('Received POST request')
@@ -73,6 +83,12 @@ express.post('/', (req, res) => {
             else { res.send(response) }
           })
           break
+        case 'pill-info':
+          console.log('Trying to get info on the pill: ' + requestBody.result.parameters.pill)
+          util.getPillInfo(requestBody.result.parameters.pill, (err, response) => {
+            if (err) { util.sendError(err, res) }
+            else { res.send(response) }
+          })
         case 'trinket-info':
           console.log('Trying to get info on the trinket: ' + requestBody.result.parameters.trinket)
           util.getTrinketInfo(requestBody.result.parameters.trinket, (err, response) => {

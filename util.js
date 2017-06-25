@@ -110,6 +110,39 @@ exports.getItemInfo = function(item, callback) {
 
 }
 
+exports.getPillInfo = function(pill, callback) {
+
+  var url = 'http://bindingofisaacrebirth.gamepedia.com/Pills'
+  curl.get(url, null, (err, res, body) => {
+    const $ = cheerio.load(body)
+    /* First, get the list of all of the items */
+    var pills = $('tr', 'table').toArray()
+    var temp_pill = null
+
+    /* NOTE: Pills are indices 3-30, 32-42, 44-51 */
+    for (var i = 3; i < 52; i++) {
+      if (i == 31 || i == 43) { continue }
+      temp_pill = $(pills[i]).text().split('\n')
+      if (pill == temp_pill[1].toLowerCase().trim()) { break }
+      else { temp_pill = null }
+    }
+
+    if (!temp_pill) {
+      callback('pill not found', null)
+      return
+    }
+
+    /* Prepare the JSON for return */
+    var res = {
+      speech: temp_pill[2],
+      displayText: temp_pill[2],
+      source: 'bindingofisaacrebirth.gamepedia.com/',
+    }
+    callback(null, res)
+    return
+  })
+}
+
 exports.getTrinketInfo = function(trinket, callback) {
 
   /* Convert the trinket to lower case and convert all ASCII-160's to ASCII-32's */

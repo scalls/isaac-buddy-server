@@ -108,7 +108,7 @@ exports.getTrinketInfo = function(trinket, callback) {
       if (trinket == temp_name) {
         console.log('Found trinket: ' + temp_name)
         index = i
-        item = $(trinkets[index]).text().split('\n')
+        trinket = $(trinkets[index]).text().split('\n')
         break
       }
     }
@@ -128,7 +128,10 @@ exports.getTrinketInfo = function(trinket, callback) {
     callback(null, res)
     return
 
+  })
+
 }
+
 
 exports.sendError = function(err, res) {
   console.error('Cannot process request', err)

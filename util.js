@@ -34,6 +34,11 @@ exports.getItemInfo = function(item, callback) {
     if (!isActive) {
       for (var i = 1; i < passives.length; i++) {
         var temp_name = $(passives[i]).text().split('\n')[1].toLowerCase().trim()
+
+        if (temp_name == 'mini mush') {
+          console.log('Comparing: \'' + temp_name + '\' and \'' + item)
+        }
+
         if (item == temp_name) {
           console.log('Found passive item: ' + temp_name)
           isPassive = true

@@ -29,6 +29,16 @@ express.get('/item/:item', (req, res) => {
   })
 })
 
+/* Also for test purposes */
+express.get('/trinket/:trinket', (req, res) => {
+  var trinket = req.params.trinket
+  console.log('Attempting to retrieve data for: ' + trinket)
+  util.getTrinketInfo(trinket, (err, response) => {
+    if (err) { util.sendError(err, res) }
+    else { res.send(response) }
+  })
+})
+
 express.post('/', (req, res) => {
 
   console.log('Received POST request')
@@ -46,6 +56,12 @@ express.post('/', (req, res) => {
             else { res.send(response) }
           })
           break
+        case 'trinket-info':
+          console.log('Trying to get info on the trinket: ' + requestBody.result.parameters.trinket)
+          util.getTrinketInfo(requestBody.result.parameters.trinket, (err, response) => {
+            if (err) { util.sendError(err, res) }
+            else { res.send(response) }
+          })
         default:
           return res.send({})
       }

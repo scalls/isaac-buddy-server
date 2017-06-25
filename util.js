@@ -12,6 +12,12 @@ exports.getItemInfo = function(item, callback) {
     else { item = new_item }
   }
 
+  /* Corner case: <3 */
+  if (item == 'less than 3') { item = '<3' }
+  /* Corner case: Odd Mushrooms */
+  if (item == 'odd mushroom large') { item = 'odd mushroom (large)'}
+  if (item == 'odd mushroom thin') { item = 'odd mushroom (thin)'}
+
 
   var url = 'http://bindingofisaacrebirth.gamepedia.com/item'
   curl.get(url, null, (err, res, body) => {
@@ -74,6 +80,53 @@ exports.getItemInfo = function(item, callback) {
               -- Description = [9]
               -- Recharge = [11] (active items only) */
   })
+
+}
+
+exports.getTrinketInfo = function(trinket, callback) {
+
+  /* Convert the trinket to lower case and convert all ASCII-160's to ASCII-32's */
+  trinket = trinket.toLowerCase()
+  while (1) {
+    var new_trinket = trinket.replace(String.fromCharCode(160), ' ')
+    if (new_trinket == trinket) { break }
+    else { trinket = new_trinket }
+  }
+
+  var url = 'http://bindingofisaacrebirth.gamepedia.com/trinket'
+  curl.get(url, null, (err, res, body) => {
+    const $ = cheerio.load(body)
+    /* First, get the list of all of the items */
+    var trinkets = $('tr', 'table[data-description="Trinkets"]').toArray()
+
+    /* Second search through the list to find the specified item */
+    var index = -1
+
+    /* Loop through the trinkets */
+    for (var i = 1; i < trinkets.length; i++) {
+      var temp_name = $(trinkets[i]).text().split('\n')[1].toLowerCase().trim()
+      if (trinket == temp_name) {
+        console.log('Found trinket: ' + temp_name)
+        index = i
+        item = $(trinkets[index]).text().split('\n')
+        break
+      }
+    }
+
+    /* Return an error if the item is not found */
+    if (index == -1) {
+      callback('trinket (' + trinket + ') not found', null)
+      return
+    }
+
+    /* Prepare the JSON for return */
+    var res = {
+      speech: trinket[9].trim(),
+      displayText: trinket[9].trim(),
+      source: 'bindingofisaacrebirth.gamepedia.com/',
+    }
+    callback(null, res)
+    return
 
 }
 

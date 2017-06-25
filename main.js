@@ -50,6 +50,7 @@ express.post('/', (req, res) => {
     }
 
   } catch(err) {
+    console.log('Something went wrong...sending an error')
     /* Send an error message back if this didn't work */
     util.sendError(err, res)
   }

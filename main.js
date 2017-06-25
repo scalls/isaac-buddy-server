@@ -61,6 +61,7 @@ express.post('/', (req, res) => {
             if (err) { util.sendError(err, res) }
             else { res.send(response) }
           })
+          break
         default:
           return res.send({})
       }

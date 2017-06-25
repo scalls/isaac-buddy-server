@@ -46,7 +46,7 @@ exports.getItemInfo = function(item, callback) {
 
     /* Return an error if the item is not found */
     if (index == -1) {
-      callback('item not found', null)
+      callback('item (' + item + ') not found', null)
       return
     }
 

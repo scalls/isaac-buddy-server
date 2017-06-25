@@ -33,6 +33,7 @@ express.post('/', (req, res) => {
 
   try {
     console.log('Trying stuff...')
+    console.log('Received request: ' + JSON.stringify(req))
     if (req.body) {
       var requestBody = req.body
       console.log('Request body: ' + JSON.stringify(requestBody))
@@ -47,6 +48,8 @@ express.post('/', (req, res) => {
         default:
           return res.send({})
       }
+    } else {
+      console.log('No body found in the request')
     }
 
   } catch(err) {

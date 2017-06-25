@@ -10,8 +10,10 @@ var util = require('./util.js')
 var https = require('https')
 var apiai = require("apiai")
 var key = apiai("2657996f7a2541ec827362de2c09cf8d")
+var bodyParser = require('body-parser')
 
 const express = require('express')()
+express.use(bodyParser.json())
 
 express.listen(process.env.PORT || 3000, function() {
   console.log('Isaac Buddy listening!')

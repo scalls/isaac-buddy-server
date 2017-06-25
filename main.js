@@ -7,7 +7,7 @@
 'use strict';
 var util = require('./util.js')
 
-var http = require('http')
+var https = require('https')
 var apiai = require("apiai")
 var key = apiai("2657996f7a2541ec827362de2c09cf8d")
 
@@ -32,7 +32,7 @@ express.post('/', (req, res) => {
   console.log('Received POST request')
 
   try {
-
+    console.log('Trying stuff...')
     if (req.body) {
       var requestBody = req.body
       console.log('Request body: ' + JSON.stringify(requestBody))
@@ -54,4 +54,5 @@ express.post('/', (req, res) => {
     /* Send an error message back if this didn't work */
     util.sendError(err, res)
   }
+  console.log('After the try/catch block')
 })

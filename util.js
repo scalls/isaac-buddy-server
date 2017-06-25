@@ -52,8 +52,8 @@ exports.getItemInfo = function(item, callback) {
 
     /* Prepare the JSON for return */
     var res = {
-      speech: 'Here is what ' + item[1].trim() + ' does: ' + item[9].trim(),
-      displayText: 'Here is what ' + item[1].trim() + ' does: ' + item[9].trim(),
+      speech: item[9].trim(),
+      displayText: item[9].trim(),
       source: 'bindingofisaacrebirth.gamepedia.com/',
     }
     callback(null, res)

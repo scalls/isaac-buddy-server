@@ -35,7 +35,8 @@ exports.getItemInfo = function(item, callback) {
       for (var i = 1; i < passives.length; i++) {
         var temp_name = $(passives[i]).text().split('\n')[1].toLowerCase().trim()
 
-        console.log(JSON.stringify(item.split(' ')))
+        console.log('Space: ' + ' '.charCodeAt())
+        console.log('WTF: ' + item[4].charCodeAt())
 
         if (item == temp_name) {
           console.log('Found passive item: ' + temp_name)

@@ -117,9 +117,12 @@ exports.getTrinketInfo = function(trinket, callback) {
 
     /* Return an error if the item is not found */
     if (index == -1) {
+      console.log('No trinket found: sending error...')
       callback('trinket (' + trinket + ') not found', null)
       return
     }
+
+    console.log('Preparing JSON to return...')
 
     /* Prepare the JSON for return */
     var res = {

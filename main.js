@@ -41,7 +41,7 @@ express.get('/trinket/:trinket', (req, res) => {
 
 /* More test purpose stuff */
 express.get('/dice_room/:num', (req, res) => {
-  var num = parseInt(req.params.num)
+  var num = req.params.num
   console.log('Attempting to retrieve data for dice room: ' + num)
   util.getDiceRoomInfo(num, (err, response) => {
     if (err) { util.sendError(err, res) }

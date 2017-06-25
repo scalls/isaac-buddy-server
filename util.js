@@ -4,6 +4,8 @@ var http = require('http')
 
 exports.getDiceRoomInfo = function(num, callback) {
 
+  num = parseInt(num)
+
   if (num < 1 || num > 6) {
     callback('number invalid', null)
   }

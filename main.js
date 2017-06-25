@@ -59,8 +59,9 @@ express.post('/', (req, res) => {
       var requestBody = req.body
       switch(requestBody.result.action) {
         case 'dice-room-info':
-          console.log('Trying to get info on the dice room: ' + requestBody.result.parameters.num)
-          util.getDiceRoomInfo(requestBody.result.parameters.item, (err, response) => {
+          console.log(JSON.stringify(requestBody.result.parameters))
+          console.log('Trying to get info on the dice room: ' + requestBody.result.parameters.number)
+          util.getDiceRoomInfo(requestBody.result.parameters.number, (err, response) => {
             if (err) { util.sendError(err, res) }
             else { res.send(response) }
           })

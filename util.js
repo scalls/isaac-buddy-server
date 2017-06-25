@@ -114,6 +114,7 @@ exports.getTrinketInfo = function(trinket, callback) {
     }
 
     console.log('Trinket index: ' + index)
+    console.log('Comparing: ' + (index == -1))
 
     /* Return an error if the item is not found */
     if (index == -1) {

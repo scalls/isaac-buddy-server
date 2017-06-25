@@ -4,7 +4,14 @@ var http = require('http')
 
 exports.getItemInfo = function(item, callback) {
 
+  /* Convert the item to lower case and convert all ASCII-160's to ASCII-32's */
   item = item.toLowerCase()
+  while (1) {
+    var new_item = item.replace(Sting.fromCharCode(160), ' ')
+    if (new_item == item) { break }
+    else { item = new_item }
+  }
+
 
   var url = 'http://bindingofisaacrebirth.gamepedia.com/item'
   curl.get(url, null, (err, res, body) => {
@@ -34,10 +41,6 @@ exports.getItemInfo = function(item, callback) {
     if (!isActive) {
       for (var i = 1; i < passives.length; i++) {
         var temp_name = $(passives[i]).text().split('\n')[1].toLowerCase().trim()
-
-        console.log('Space: ' + ' '.charCodeAt())
-        console.log('WTF: ' + item[4].charCodeAt())
-
         if (item == temp_name) {
           console.log('Found passive item: ' + temp_name)
           isPassive = true

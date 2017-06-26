@@ -9,7 +9,7 @@ var util = require('./util.js')
 
 var https = require('https')
 var apiai = require("apiai")
-var key = apiai("2657996f7a2541ec827362de2c09cf8d")
+var key = apiai("973e8bb50200417899ce98101f30126b")
 var bodyParser = require('body-parser')
 
 const express = require('express')()

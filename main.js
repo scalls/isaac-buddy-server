@@ -89,6 +89,7 @@ express.post('/', (req, res) => {
             if (err) { util.sendError(err, res) }
             else { res.send(response) }
           })
+          break
         case 'trinket-info':
           console.log('Trying to get info on the trinket: ' + requestBody.result.parameters.trinket)
           util.getTrinketInfo(requestBody.result.parameters.trinket, (err, response) => {

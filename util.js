@@ -132,6 +132,11 @@ exports.getPillInfo = function(pill, callback) {
       return
     }
 
+    /* Corner case: Amnesia */
+    if (pill == 'amnesia') {
+      temp_pill[2] = temp_pill.replace('?', 'question mark')
+    }
+
     /* Prepare the JSON for return */
     var res = {
       speech: temp_pill[2],

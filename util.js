@@ -2,16 +2,17 @@ var curl = require('curl')
 var cheerio = require('cheerio')
 var http = require('http')
 
-exports.getConsumableInfo = function(consumable, callback) {
+exports.getCardRuneInfo = function(cardrune, callback) {
 
-  consumable = consumable.toLowerCase()
+  cardrune = cardrune.toLowerCase()
 
   var url = 'http://bindingofisaacrebirth.gamepedia.com/Cards_and_Runes'
   curl.get(url, null, (err, res, body) => {
     const $ = cheerio.load(body)
     /* Get all of the cards/runes/consumables on the page */
-    var consumables = $('tr', 'table').toArray()
-    var temp_consumable = null
+    var cards_runes = $('tr', 'table').toArray()
+    var temp_cardrune = null
+    var index = i
     /* NOTE: Indices 3-24 are tarot cards
              Indices 26-34 are playing cards
              Indices 36-46 are special cards
@@ -19,28 +20,35 @@ exports.getConsumableInfo = function(consumable, callback) {
              Indices 53-57 are right-pointing runes
              Index 59 is the Black Rune
              Indices 61-62 are the consumables */
-    for (var i = 0; i < consumables.length; i++) {
-      temp_consumable = $(consumables[i]).text().split('\n')
-      if (consumable == temp_consumable[1].toLowerCase().trim()) {
-        console.log('Found consumable: ' + consumable)
-        console.log(JSON.stringify(temp_consumable))
+    for (var i = 0; i < cards_runes.length; i++) {
+      temp_cardrune = $(cards_runes[i]).text().split('\n')
+      if (cardrune == temp_cardrune[1].toLowerCase().trim()) {
+        console.log('Found card/rune: ' + cardrune + ' @ ' + i)
+        index = i
         break
       }
     }
 
-    if (temp_consumable == null) {
-      callback('consumable not found', null)
+    if (temp_cardrune == null) {
+      callback('card/rune not found', null)
       return
     }
 
-    /* NOTE: [1] is the consumable Name
+    /* NOTE: [1] is the card/rune name
              [3] is the ID
              [7] is the message
              [9] is the description/effect */
 
+    var description = temp_cardrune[9].trim()
+    /* Runes have slightly different table formats */
+    if (index >= 48 && index <= 59) {
+      description = temp_cardrune[11].trim()
+    }
+
+
     var res = {
-      speech: temp_consumable[9].trim(),
-      displayText: temp_consumable[9].trim(),
+      speech: description,
+      displayText: description,
       source: 'bindingofisaacrebirth.gamepedia.com/'
     }
     callback(null, res)

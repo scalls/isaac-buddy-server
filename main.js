@@ -59,10 +59,10 @@ express.get('/pills/:pill', (req, res) => {
 })
 
 /* For testing */
-express.get('/card/:card', (req, res) => {
-  var card = req.params.card
-  console.log('Attempting to retrieve data for card/consumable: ' + card)
-  util.getConsumableInfo(card, (err, response) => {
+express.get('/cardrune/:cardrune', (req, res) => {
+  var cardrune = req.params.cardrune
+  console.log('Attempting to retrieve data for card/rune: ' + cardrune)
+  util.getCardRuneInfo(cardrune, (err, response) => {
     if (err) { util.sendError(err, res) }
     else { res.send(response) }
   })
@@ -77,10 +77,10 @@ express.post('/', (req, res) => {
     if (req.body) {
       var requestBody = req.body
       switch(requestBody.result.action) {
-        case 'consumable-info':
+        case 'card-rune-info':
           console.log(JSON.stringify(requestBody.result.parameters))
-          console.log('Trying to get info on the consumable: ' + requestBody.result.parameters.card)
-          util.getConsumableInfo(requestBody.result.parameters.card, (err, res) => {
+          console.log('Trying to get info on the card/rune: ' + requestBody.result.parameters.cardrune)
+          util.getCardRuneInfo(requestBody.result.parameters.cardrune, (err, res) => {
             if (err) { util.sendErr(err, res) }
             else { res.send(response) }
           })

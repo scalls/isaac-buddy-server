@@ -58,6 +58,16 @@ express.get('/pills/:pill', (req, res) => {
   })
 })
 
+/* For testing */
+express.get('/card/:card', (req, res) => {
+  var card = req.params.card
+  console.log('Attempting to retrieve data for card/consumable: ' + card)
+  util.getConsumableInfo(card, (err, response) => {
+    if (err) { util.sendError(err, res) }
+    else { res.send(response) }
+  })
+})
+
 express.post('/', (req, res) => {
 
   console.log('Received POST request')
@@ -67,6 +77,14 @@ express.post('/', (req, res) => {
     if (req.body) {
       var requestBody = req.body
       switch(requestBody.result.action) {
+        case 'consumable-info':
+          console.log(JSON.stringify(requestBody.result.parameters))
+          console.log('Trying to get info on the consumable: ' + requestBody.result.parameters.card)
+          util.getConsumableInfo(requestBody.result.parameters.card, (err, res) => {
+            if (err) { util.sendErr(err, res) }
+            else { res.send(response) }
+          })
+          break
         case 'dice-room-info':
           console.log(JSON.stringify(requestBody.result.parameters))
           console.log('Trying to get info on the dice room: ' + requestBody.result.parameters.number)

@@ -2,6 +2,53 @@ var curl = require('curl')
 var cheerio = require('cheerio')
 var http = require('http')
 
+exports.getConsumableInfo = function(consumable, callback) {
+
+  consumable = consumable.toLowerCase()
+
+  var url = 'http://bindingofisaacrebirth.gamepedia.com/Cards_and_Runes'
+  curl.get(url, null, (err, res, body) => {
+    const $ = cheerio.load(body)
+    /* Get all of the cards/runes/consumables on the page */
+    var consumables = $('tr', 'table').toArray()
+    var temp_consumable = null
+    /* NOTE: Indices 3-24 are tarot cards
+             Indices 26-34 are playing cards
+             Indices 36-46 are special cards
+             Indices 48-51 are left-pointing runes
+             Indices 53-57 are right-pointing runes
+             Index 59 is the Black Rune
+             Indices 61-62 are the consumables */
+    for (var i = 0; i < consumables.length; i++) {
+      temp_consumable = $(consumables[i]).text().split('\n')
+      if (consumable == temp_consumable[1].toLowerCase().trim()) {
+        console.log('Found consumable: ' + consumable)
+        console.log(JSON.stringify(temp_consumable))
+        break
+      }
+    }
+
+    if (temp_consumable == null) {
+      callback('consumable not found', null)
+      return
+    }
+
+    /* NOTE: [1] is the consumable Name
+             [3] is the ID
+             [7] is the message
+             [9] is the description/effect */
+
+    var res = {
+      speech: temp_consumable[9].trim(),
+      displayText: temp_consumable[9].trim(),
+      source: 'bindingofisaacrebirth.gamepedia.com/'
+    }
+    callback(null, res)
+
+  })
+
+}
+
 exports.getDiceRoomInfo = function(num, callback) {
 
   num = parseInt(num)
@@ -13,7 +60,7 @@ exports.getDiceRoomInfo = function(num, callback) {
   var url = 'http://bindingofisaacrebirth.gamepedia.com/Dice_Room'
   curl.get(url, null, (err, res, body) => {
     const $ = cheerio.load(body)
-    /* First, get the list of all of the items */
+    /* First, get the list of all of the dice rooms */
     var dice_rooms = $('li', 'div .mw-content-ltr').toArray()
     var text = $(dice_rooms[num+3]).text()
     text = text.substring(text.indexOf('-') + 2)

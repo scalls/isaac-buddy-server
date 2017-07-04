@@ -80,7 +80,7 @@ express.post('/', (req, res) => {
         case 'card-rune-info':
           console.log(JSON.stringify(requestBody.result.parameters))
           console.log('Trying to get info on the card/rune: ' + requestBody.result.parameters.cardrune)
-          util.getCardRuneInfo(requestBody.result.parameters.cardrune, (err, res) => {
+          util.getCardRuneInfo(requestBody.result.parameters.cardrune, (err, response) => {
             if (err) { util.sendErr(err, res) }
             else { res.send(response) }
           })

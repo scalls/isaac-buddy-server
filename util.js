@@ -95,7 +95,10 @@ exports.getItemInfo = function(item, callback) {
   }
 
   /* Corner case: <3 */
-  if (item == 'less than 3') { item = '<3' }
+  if (item == 'less than 3') {
+    item = '<3'
+    console.log('Corner case: converting "less than 3" to "<3"')
+  }
   /* Corner case: Odd Mushrooms */
   if (item == 'odd mushroom large') { item = 'odd mushroom (large)'}
   if (item == 'odd mushroom thin') { item = 'odd mushroom (thin)'}

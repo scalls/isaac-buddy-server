@@ -68,6 +68,16 @@ express.get('/cardrune/:cardrune', (req, res) => {
   })
 })
 
+/* Testing */
+express.get('/sacrifice/:num', (req, res) => {
+  var num = req.params.num
+  console.log('Attempting to retrieve data for sacrifice room: ' + num)
+  util.getSacrificeRoomInfo(num, (err, response) => {
+    if (err) { util.sendError(err, res) }
+    else { res.send(response) }
+  })
+})
+
 express.post('/', (req, res) => {
 
   console.log('Received POST request')
@@ -104,6 +114,13 @@ express.post('/', (req, res) => {
           console.log('Trying to get info on the pill: ' + requestBody.result.parameters.pill)
           util.getPillInfo(requestBody.result.parameters.pill, (err, response) => {
             if (err) { util.sendError(err, res) }
+            else { res.send(response) }
+          })
+          break
+        case 'sacrifice-room-info':
+          console.log('Trying to get info on sacrifice room: ' + requestBody.result.parameters.num)
+          util.getSacrificeRoomInfo(requestBody.result.parameters.num, (err, response) => {
+            if (err) { util.send(err, res) }
             else { res.send(response) }
           })
           break

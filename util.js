@@ -168,6 +168,10 @@ exports.getItemInfo = function(item, callback) {
 
 }
 
+exports.getPandorasBoxInfo = function(floor, callback) {
+  
+}
+
 exports.getPillInfo = function(pill, callback) {
 
   var url = 'http://bindingofisaacrebirth.gamepedia.com/Pills'
@@ -204,6 +208,54 @@ exports.getPillInfo = function(pill, callback) {
     callback(null, res)
     return
   })
+}
+
+exports.getSacrificeRoomInfo = function(num, callback) {
+
+  num = parseInt(num)
+  if (num > 12) { num = 12 }
+  else if (num == 1) { num = 2 }
+
+  var message = ''
+
+  switch (num) {
+    case 2:
+      message = '50% chance of nothing. 50% chance to spawn 1 penny.'
+      break
+    case 3:
+      message = '33% chance of nothing. 67% chance to increase chance of receiving Angel Room over a Devil room for the current floor.'
+      break
+    case 4:
+      message = '50% chance of nothing. 50% chance to spawn 1 random chest.'
+      break
+    case 5:
+      message = '33% chance to spawn 3 coins. 67% chance to increase chance of receiving an Angel Room over a Devil room for the current floor.'
+      break
+    case 6:
+      message = '33% chance to teleport to the Devil or Angel Room. 67% chance to spawn 1 random chest.'
+      break
+    case 7:
+      message = 'If you have taken a Devil Deal, 100% chance to spawn a soul heart. If not, 33% chance to spawn one random Angel Room pedestal item and 67% chance to spawn a soul heart.'
+      break
+    case 8:
+      message = '100% chance to spawn 6 troll bombs.'
+      break
+    case 9:
+      message = '100% chance to spawn Uriel.'
+      break
+    case 10:
+      message = '50% chance to spawn 7 soul hearts. 50% chance to spawn 30 pennies.'
+      break
+    case 11:
+      message = '100% chance to spawn Gabriel.'
+      break
+    case 12:
+      message = '50% chance of nothing. 50% chance to teleport directly to the Dark Room.'
+      break
+    default:
+      message = 'Nothing.'
+  }
+
 }
 
 exports.getTrinketInfo = function(trinket, callback) {

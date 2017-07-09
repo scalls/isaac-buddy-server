@@ -118,8 +118,8 @@ express.post('/', (req, res) => {
           })
           break
         case 'sacrifice-room-info':
-          console.log('Trying to get info on sacrifice room: ' + requestBody.result.parameters.num)
-          util.getSacrificeRoomInfo(requestBody.result.parameters.num, (err, response) => {
+          console.log('Trying to get info on sacrifice room: ' + requestBody.result.parameters.num[0])
+          util.getSacrificeRoomInfo(requestBody.result.parameters.num[0], (err, response) => {
             if (err) { util.send(err, res) }
             else { res.send(response) }
           })

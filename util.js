@@ -168,7 +168,120 @@ exports.getItemInfo = function(item, callback) {
 
 }
 
-exports.getPandorasBoxInfo = function(floor, callback) {
+exports.getPandorasBoxInfo = function(floor, gamemode, callback) {
+
+  var message = ''
+
+  switch (gamemode) {
+    case 'normal':
+    case 'hard':
+      switch (floor) {
+        case 'basement i':
+        case 'cellar i':
+        case 'burning basement i':
+        case 'basement xl':
+        case 'cellar xl':
+        case 'burning basement xl':
+        case 'the basement':
+          message = 'Spawns 2 soul hearts.'
+          break
+        case 'basement ii':
+        case 'cellar ii':
+        case 'burning basement ii':
+          message = 'Spawns 2 keys and 2 bombs.'
+          break
+        case 'caves i':
+        case 'catacombs i':
+        case 'flooded caves i':
+        case 'caves xl':
+        case 'catacombs xl':
+        case 'flooded caves xl':
+        case 'the caves':
+          message = 'Spawns 1 Boss Room item.'
+          break
+        case 'caves ii':
+        case 'catacombs ii':
+        case 'flooded caves ii':
+          message = 'Spawns 1 Boss Room item and 2 soul hearts.'
+          break
+        case 'depths i':
+        case 'necropolis i':
+        case 'dank depths i':
+        case 'depths xl':
+        case 'necropolis xl':
+        case 'dank depths xl':
+        case 'the depths':
+          message = 'Spawns 4 soul hearts.'
+          break
+        case 'depths ii':
+        case 'necropolis ii':
+        case 'dank depths ii':
+          message = 'Spawns 20 coins.'
+          break
+        case 'womb i':
+        case 'utero i':
+        case 'scarred womb i':
+        case 'womb xl':
+        case 'utero xl':
+        case 'scarred womb xl':
+        case 'the womb':
+          message = 'Spawns 2 Boss Room items.'
+          break
+        case 'womb ii':
+        case 'utero ii':
+        case 'scarred womb':
+          message = 'Spawns The Bible.'
+          break
+        case 'sheol':
+          message = 'Spawns 1 Devil Room item and 1 black heart.'
+          break
+        case 'cathedral':
+          message = 'Spawns 1 Angel Room item and 1 eternal heart.'
+          break
+        case 'chest':
+          message = 'Spawns 1 coin.'
+          break
+        default:
+          message = 'Nothing.'
+      }
+      break
+    case 'greed':
+    case 'greedier':
+      case 'the basement':
+        message = 'Spawns 2 soul hearts.'
+        break
+      case 'the caves':
+        message = 'Spawns 2 keys and 2 bombs.'
+        break
+      case 'the depths':
+        message = 'Spawns 1 Boss Room item.'
+        break
+      case 'the womb':
+        message = 'Spawns 1 Boss Room item and 2 soul hearts.'
+        break
+      case 'sheol':
+        message = 'Spawns 4 soul hearts.'
+        break
+      case 'the shop':
+        message = 'Spawns 20 coins.'
+        break
+      case 'ultra greed':
+        message = 'Spawns 2 Boss Room items.'
+        break
+      default:
+        message = 'Nothing'
+      break
+    default:
+      message = 'Nothing.'
+  }
+
+  var response = {
+    speech: message,
+    displayTest: message,
+    source: 'bindingofisaacrebirth.gamepedia.com'
+  }
+
+  callback(null, response)
 
 }
 

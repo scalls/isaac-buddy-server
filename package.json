@@ -21,5 +21,6 @@
     "test": "mocha test"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "repository": "github.com/scalls/isaac-buddy-server"
 }

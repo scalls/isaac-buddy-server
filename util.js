@@ -169,7 +169,7 @@ exports.getItemInfo = function(item, callback) {
 }
 
 exports.getPandorasBoxInfo = function(floor, callback) {
-  
+
 }
 
 exports.getPillInfo = function(pill, callback) {
@@ -255,6 +255,14 @@ exports.getSacrificeRoomInfo = function(num, callback) {
     default:
       message = 'Nothing.'
   }
+
+  var response = {
+    speech: message,
+    displayText: message,
+    source: 'bindingofisaacrebirth.gamepedia.com/'
+  }
+
+  callback(null, response)
 
 }
 

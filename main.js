@@ -110,6 +110,14 @@ express.post('/', (req, res) => {
             else { res.send(response) }
           })
           break
+        case 'pandora\'s-box-info':
+          var floor = requestBody.result.parameters.floor
+          var gamemode = requestBody.result.parameters.gamemode
+          console.log('Trying to get info on pandora\'s box on floor + gamemode:' + floor + ' ' + gamemode)
+          util.getPandorasBoxInfo(floor, gamemode, (err, response) => {
+            if (err) { util.sendError(err, res) }
+            else { res.send(response) }
+          })
         case 'pill-info':
           console.log('Trying to get info on the pill: ' + requestBody.result.parameters.pill)
           util.getPillInfo(requestBody.result.parameters.pill, (err, response) => {

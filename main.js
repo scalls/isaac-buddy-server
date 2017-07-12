@@ -118,6 +118,7 @@ express.post('/', (req, res) => {
             if (err) { util.sendError(err, res) }
             else { res.send(response) }
           })
+          break
         case 'pill-info':
           console.log('Trying to get info on the pill: ' + requestBody.result.parameters.pill)
           util.getPillInfo(requestBody.result.parameters.pill, (err, response) => {

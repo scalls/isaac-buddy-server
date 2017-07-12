@@ -247,30 +247,32 @@ exports.getPandorasBoxInfo = function(floor, gamemode, callback) {
       break
     case 'greed':
     case 'greedier':
-      case 'the basement':
-        message = 'Spawns 2 soul hearts.'
+      switch (floor) {
+        case 'the basement':
+          message = 'Spawns 2 soul hearts.'
+          break
+        case 'the caves':
+          message = 'Spawns 2 keys and 2 bombs.'
+          break
+        case 'the depths':
+          message = 'Spawns 1 Boss Room item.'
+          break
+        case 'the womb':
+          message = 'Spawns 1 Boss Room item and 2 soul hearts.'
+          break
+        case 'sheol':
+          message = 'Spawns 4 soul hearts.'
+          break
+        case 'the shop':
+          message = 'Spawns 20 coins.'
+          break
+        case 'ultra greed':
+          message = 'Spawns 2 Boss Room items.'
+          break
+        default:
+          message = 'Nothing'
         break
-      case 'the caves':
-        message = 'Spawns 2 keys and 2 bombs.'
-        break
-      case 'the depths':
-        message = 'Spawns 1 Boss Room item.'
-        break
-      case 'the womb':
-        message = 'Spawns 1 Boss Room item and 2 soul hearts.'
-        break
-      case 'sheol':
-        message = 'Spawns 4 soul hearts.'
-        break
-      case 'the shop':
-        message = 'Spawns 20 coins.'
-        break
-      case 'ultra greed':
-        message = 'Spawns 2 Boss Room items.'
-        break
-      default:
-        message = 'Nothing'
-      break
+      }
     default:
       message = 'Nothing.'
   }

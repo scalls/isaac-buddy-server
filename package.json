@@ -13,7 +13,8 @@
     "express": "^4.15.3",
     "htmlparser2": "^3.9.2",
     "https": "^1.0.0",
-    "mocha": "^3.4.2"
+    "mocha": "^3.4.2",
+    "sqlite3": "^3.1.8"
   },
   "devDependencies": {},
   "scripts": {

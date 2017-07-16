@@ -4,7 +4,9 @@
  * Apache 2.0 Licensed
  */
 
-'use strict';
+'use strict'
+
+var feedback = require('./feedback.js')
 var util = require('./util.js')
 
 var https = require('https')
@@ -136,6 +138,16 @@ express.post('/', (req, res) => {
         case 'trinket-info':
           console.log('Trying to get info on the trinket: ' + requestBody.result.parameters.trinket)
           util.getTrinketInfo(requestBody.result.parameters.trinket, (err, response) => {
+            if (err) { util.sendError(err, res) }
+            else { res.send(response) }
+          })
+          break
+        case 'feedback':
+          console.log('Receiving feedback...');
+          console.log(JSON.stringify(requestBody))
+          var polarity = requestBody.result.parameters.polarity
+          var context = requestBody.result.contexts[0]
+          feedback.feedback(context, polarity, (err, response) => {
             if (err) { util.sendError(err, res) }
             else { res.send(response) }
           })

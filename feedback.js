@@ -8,7 +8,7 @@ exports.feedback = function(context, polarity, callback) {
     displayTest: 'Thank you for your input!',
   }
 
-  switch () {
+  switch (context) {
     case context.hasOwnProperty('item'):
       console.log('Logging item intent feedback...')
       break

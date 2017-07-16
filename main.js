@@ -99,7 +99,7 @@ express.post('/', (req, res) => {
           break
         case 'dice-room-info':
           console.log(JSON.stringify(requestBody.result.parameters))
-          console.log('Trying to get info on the dice room: ' + requestBody.result.parameters.number)
+          console.log('Trying to get info on the dice room: ' + requestBody.result.parameters.dicenumber)
           util.getDiceRoomInfo(requestBody.result.parameters.number, (err, response) => {
             if (err) { util.sendError(err, res) }
             else { res.send(response) }
@@ -129,7 +129,7 @@ express.post('/', (req, res) => {
           })
           break
         case 'sacrifice-room-info':
-          console.log('Trying to get info on sacrifice room: ' + requestBody.result.parameters.num[0])
+          console.log('Trying to get info on sacrifice room: ' + requestBody.result.parameters.sacrificenum[0])
           util.getSacrificeRoomInfo(requestBody.result.parameters.num[0], (err, response) => {
             if (err) { util.send(err, res) }
             else { res.send(response) }
